@@ -54,4 +54,5 @@ secrets/
 .vscode/
 .idea/
 
-data/
+data/processed/*.csv
+data/raw/*.csv

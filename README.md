@@ -77,7 +77,6 @@ medml-pipeline/
 ├── api/
 ├── tests/
 ├── models/
-├── reports/
 ├── docker/
 ├── dvc.yaml
 ├── params.yaml
