@@ -1,0 +1,7 @@
+
+[core]
+    analytics = false
+[cache]
+    type = reflink,copy
+[remote "localremote"]
+    url = ./.dvc/storage

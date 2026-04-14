@@ -1,0 +1,67 @@
+dataset:
+  name: synthetic_medical_risk
+  source: csv
+  path: data/raw/sample_medical_dataset.csv
+  target: outcome
+  test_size: 0.2
+  random_state: 42
+  id_column: patient_id
+  numeric_features:
+    - age
+    - bmi
+    - glucose
+    - systolic_bp
+    - diastolic_bp
+    - insulin
+    - hba1c
+  categorical_features:
+    - gender
+    - smoking_status
+    - family_history
+
+preprocessing:
+  drop_duplicates: true
+  outlier_strategy: clip_iqr
+  missing_threshold: 0.5
+  numeric_imputer: median
+  categorical_imputer: most_frequent
+  scale_numeric: true
+
+modeling:
+  primary_metric: f1
+  cv_folds: 5
+  track_with_mlflow: true
+  experiment_name: medical_prediction_pipeline
+  registry_model_name: medical_risk_classifier
+  models:
+    mlp:
+      enabled: true
+      params:
+        hidden_layer_sizes: [[32], [64, 32]]
+        alpha: [0.0001, 0.001]
+        learning_rate_init: [0.001]
+        max_iter: [300]
+    svm:
+      enabled: true
+      params:
+        C: [0.5, 1.0]
+        kernel: [rbf]
+        gamma: [scale]
+        probability: [true]
+    xgboost:
+      enabled: true
+      params:
+        n_estimators: [100, 150]
+        max_depth: [3, 5]
+        learning_rate: [0.05, 0.1]
+        subsample: [0.9]
+        colsample_bytree: [0.9]
+
+paths:
+  processed_train: data/processed/train.csv
+  processed_test: data/processed/test.csv
+  feature_schema: data/processed/feature_schema.json
+  best_model: models/best_model.joblib
+  model_metadata: models/model_metadata.json
+  metrics_csv: reports/model_comparison.csv
+  evaluation_dir: reports

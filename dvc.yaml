@@ -1,0 +1,39 @@
+stages:
+  preprocess:
+    cmd: uv run python -m src.preprocessing
+    deps:
+      - src/data_loader.py
+      - src/preprocessing.py
+      - params.yaml
+      - data/raw/sample_medical_dataset.csv
+    outs:
+      - data/processed/train.csv
+      - data/processed/test.csv
+      - data/processed/feature_schema.json
+
+  train:
+    cmd: uv run python -m src.train
+    deps:
+      - src/train.py
+      - src/evaluate.py
+      - src/preprocessing.py
+      - data/processed/train.csv
+      - data/processed/test.csv
+      - params.yaml
+    outs:
+      - models/best_model.joblib
+      - models/model_metadata.json
+    metrics:
+      - reports/model_comparison.csv
+
+  evaluate:
+    cmd: uv run python -m src.evaluate
+    deps:
+      - src/evaluate.py
+      - models/best_model.joblib
+      - models/model_metadata.json
+      - data/processed/test.csv
+      - params.yaml
+    outs:
+      - reports/confusion_matrix.png
+      - reports/roc_curve.png

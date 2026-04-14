@@ -1,0 +1,57 @@
+# uv / local env
+.venv/
+.python-version
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Test / type-check / coverage caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+htmlcov/
+.coverage
+
+# MLflow
+mlruns/
+
+# DVC local cache/state
+.dvc/cache/
+.dvc/tmp/
+.dvc/config.local
+
+# Raw and processed data files
+data/raw/*.csv
+!data/raw/.gitkeep
+data/processed/*.csv
+!data/processed/.gitkeep
+
+# Trained models / serialized artifacts
+models/*.joblib
+models/*.pkl
+models/*.json
+!models/.gitkeep
+
+# Generated reports / plots
+reports/*.png
+reports/*.csv
+reports/*.json
+reports/*.txt
+!reports/.gitkeep
+
+# Logs and secrets
+*.log
+.env
+.env.*
+secrets/
+*.key
+
+# OS/editor noise
+.DS_Store
+.vscode/
+.idea/
+
+data/
